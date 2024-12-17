@@ -11,5 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
+          pip install -r requirements.txt
           pip install pylint
           pylint .
