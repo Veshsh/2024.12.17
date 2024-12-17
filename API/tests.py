@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 
 from .models import User
 
+
 class TC_UserManager(TestCase):
     def setUp(self):
         self.userManager = User.objects
@@ -18,7 +19,7 @@ class TC_UserManager(TestCase):
 
         self.userManager.create_user(login=expected_login, password=expected_password)
         user = self.userManager.get(login=expected_login)
-        salt = user.password.split('$')[2]
+        salt = user.password.split("$")[2]
         actual_login = user.login
         actual_password = user.password
         actual_is_staff = user.is_staff
@@ -57,9 +58,11 @@ class TC_UserManager(TestCase):
         expected_is_staff = True
         expected_is_superuser = True
 
-        self.userManager.create_superuser(login=expected_login, password=expected_password)
+        self.userManager.create_superuser(
+            login=expected_login, password=expected_password
+        )
         superuser = self.userManager.get(login=expected_login)
-        salt = superuser.password.split('$')[2]
+        salt = superuser.password.split("$")[2]
         actual_login = superuser.login
         actual_password = superuser.password
         actual_is_staff = superuser.is_staff
@@ -79,6 +82,7 @@ class TC_UserManager(TestCase):
 
         actual_exception_message = str(catch.exception)
         self.assertEqual(expected_exception_message, actual_exception_message)
+
 
 class TC_User(TestCase):
     pass
