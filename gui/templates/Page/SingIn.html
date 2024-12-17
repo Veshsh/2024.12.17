@@ -1,0 +1,32 @@
+{% extends 'Sample/MainTemplate.html' %}
+{% block title%}
+	Войти
+{% endblock title%} 
+{% block main%}
+<style>
+	button,input{	
+		height: 4vh;
+		width: 30vh;
+		font-size: 2vh;
+	}
+	div{
+		margin: 0.8vh;	
+		text-align: center;
+	}
+</style>
+<form method="post" class="center" style="min-height: 90vh">
+	{% csrf_token %}
+	<div class="box" style="display: flex; flex-direction: column; justify-content: space-around;">
+		<div>
+		<input type="text" name="username" placeholder="Логин" required>
+		</div>
+		<div>
+    	<input type="password" name="password" placeholder="Пароль" required>
+		</div>
+		<div>
+    	<button type="submit">Войти</button>
+		</div>
+	</div>
+</form>
+{% endblock main%}  
+

@@ -1,0 +1,98 @@
+{% extends 'Sample/MainTemplate.html' %}
+{% block title%}
+	Войти
+{% endblock title%} 
+{% block main%}
+<style>
+	button,input{	
+		height: 4vh;
+		width: 10vh;
+		font-size: 2vh;
+	}
+	div{
+		margin: 0.8vh;	
+		text-align: center;
+	}
+	input{
+		width:19vh;
+	}
+	.tf input{
+		height: 2vh;
+		width: 2vh;
+		font-size: 2vh;
+	}
+</style>
+<div class="center" style="min-height: 90vh;">
+	<div class="box" style="place-items: start; display: flex; flex-direction: row; justify-content: flex-start; width: 80%; height:80%; ">
+		<table>
+		<tr>
+			  <th>Имя</th>
+			  <th>Группа</th>
+			  <th>Ip</th>
+			  <th>Port</th>
+			  <th>Имя</th>
+			  <th>Пароль</th>
+			  <th>Обновить</th>
+			  <th>Удалить</th>
+			  <th>Подключится</th>
+		</tr>
+		{%for machin in machins%}	
+		<tr>
+			<form method="post" onsubmit="return confirm('Вы уверены?');">
+				{% csrf_token %}
+				<td>{{machin.form.name}}</td>
+				<td>{{machin.form.group}}</td>
+				<td>{{machin.form.ip}}</td>
+				<td>{{machin.form.port}}</td>
+				<td>{{machin.form.username}}</td>
+				<td>{{machin.form.password}}</td>
+				<input type="hidden" value="{{ machin.id }}" name="id">
+				<td><button  formaction={% url 'url-list'  machin.id %}  type="submit">Обновить</button></td>
+				<td><button  formaction={% url 'url-list' 0 %}  type="submit">Удалить</button></td>
+			</form>	
+				<td>
+					<a href="{% url 'url-connect-ssh' machin.id %}">подключится</a>
+				</td>
+		</tr>
+		{%endfor%}
+		<tr>
+			  <th>Имя</th>
+			  <th>Группа</th>
+			  <th>Ip</th>
+			  <th>Port</th>
+			  <th>Имя</th>
+			  <th>Пароль</th>
+			  <th>Лог</th>
+			  <th>История</th>
+			  <th>Добавить</th>
+		</tr>
+		<tr>
+			<form method="post" onsubmit="return confirm('Вы уверены?');">
+				{% csrf_token %}
+				<td>{{form.name}}</td>
+    			<td>{{form.group }}</td>	
+				<td>{{form.ip}}</td>
+				<td>{{form.port}}</td>
+				<td>{{form.username}}</td>
+				<td>{{form.password}}</td>
+				<td class="tf">{{form.log_save}}</td>
+				<td class="tf">{{form.history_save}}</td>
+				<td><button formaction={% url 'url-list' 0%}  type="submit">Добавить</button></td>
+			</form>
+		</tr>
+		<table>
+		<div style="display: flex; flex-direction: column; width: 10vh">
+			<form method="post">
+			{% csrf_token %}
+			<select name="group_filter" id="group_filter"  multiple> 
+			{%for machin_group in machin_groups%}	
+					<option value='{{machin_group.id}}'>{{machin_group.name}}</option>
+			{%endfor%}
+			</select>
+			<button formaction={% url 'url-list'%} type="submit">Фильтр</button>
+		</form>	
+		</div>
+	</div>
+</div>
+{% endblock main%}  
+

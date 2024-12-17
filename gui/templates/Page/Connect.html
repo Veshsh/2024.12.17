@@ -1,0 +1,31 @@
+{% extends 'Sample/MainTemplate.html' %}
+{% block title%}
+	Подключение
+{% endblock title%} 
+{% block main%}
+<style>
+	button,input{	
+		height: 4vh;
+		font-size: 2vh;
+		width: 5%;
+	}
+	div{
+		margin: 0.8vh;	
+		text-align: center;
+	}
+	body {
+   		height: 100%;
+   		overflow-y: hidden;
+	}
+</style>
+<div class="center" style="min-height: 100vh;">
+	<div class="box" style="place-items: start; display: flex; flex-direction: column; justify-content: flex-start; width: 80%; height:80%; ">	<div class="box" style="padding: 5px;margin: 35px; place-items: start; display: flex; flex-direction: column; justify-content: flex-start; width: 80%; height:80%; text-align: left; overflow-y: scroll;">
+	{{cmdout | linebreaksbr}}
+	</div>
+	<form action = "" method = "POST" style="width: 80%; text-align: left; padding: 35px; padding-top: 0px;">
+    {% csrf_token %} 
+	<input id="cmdin" style="width: 80%;" type="text" name="cmdin" />
+	<button type="submit">enter</button>
+	</div>
+</div>
+{% endblock main%} 
